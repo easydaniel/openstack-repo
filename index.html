@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/Chart.min.js"></script>
+
+  </head>
+  <body>
+
+    <nav>
+      <div class="nav-wrapper teal">
+        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="sass.html">Sass</a>
+          </li>
+          <li>
+            <a href="badges.html">Components</a>
+          </li>
+          <li>
+            <a href="collapsible.html">Javascript</a>
+          </li>
+          <li>
+            <a href="mobile.html">Mobile</a>
+          </li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li>
+            <a href="sass.html">Sass</a>
+          </li>
+          <li>
+            <a href="badges.html">Components</a>
+          </li>
+          <li>
+            <a href="collapsible.html">Javascript</a>
+          </li>
+          <li>
+            <a href="mobile.html">Mobile</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <img src="http://camera.ehps.ncsu.edu:8102/c12">
+            <span class="card-title">somewhere</span>
+          </div>
+          <div class="card-content" style="padding:3%;">
+            <canvas id="canvas" height="150"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+      var lineChartData = {
+        labels: [
+          "30s",
+          "25s",
+          "20s",
+          "15s",
+          "10s",
+          "5s",
+          "0s"
+        ],
+        datasets: [
+          {
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+      window.onload = function () {
+        $(".button-collapse").sideNav();
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx).Line(lineChartData, {responsive: true});
+        window.setInterval(function () {
+          var update = Math.floor(Math.random() * 100);
+          var points = window.myLine.datasets[0].points;
+          for (var i = 0; i < 6; ++i) {
+            points[i].value = points[i + 1].value;
+          }
+          points[6].value = update;
+          window.myLine.datasets[0].points = points;
+          window.myLine.update();
+        }, 5000);
+      }
+    </script>
+
+  </body>
+</html>
