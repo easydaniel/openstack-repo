@@ -2,49 +2,31 @@
 <html lang="en">
   <head>
     <title>Dashboard</title>
-    <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+    <script src="./js/jquery-2.2.2.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-    <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/Chart.min.js"></script>
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/Chart.min.js"></script>
 
   </head>
   <body>
 
     <nav>
       <div class="nav-wrapper teal">
-        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#!" class="brand-logo">Home</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse">
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <a href="sass.html">Sass</a>
-          </li>
-          <li>
-            <a href="badges.html">Components</a>
-          </li>
-          <li>
-            <a href="collapsible.html">Javascript</a>
-          </li>
-          <li>
-            <a href="mobile.html">Mobile</a>
+            <a href="hmap.html">Heat Map</a>
           </li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li>
-            <a href="sass.html">Sass</a>
-          </li>
-          <li>
-            <a href="badges.html">Components</a>
-          </li>
-          <li>
-            <a href="collapsible.html">Javascript</a>
-          </li>
-          <li>
-            <a href="mobile.html">Mobile</a>
+            <a href="hmap.html">Heat Map</a>
           </li>
         </ul>
       </div>
@@ -54,64 +36,324 @@
       <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-image">
-            <img src="http://camera.ehps.ncsu.edu:8102/c12">
-            <span class="card-title">somewhere</span>
+            <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:25%;">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <img style="width:100%; height:230px; opacity:0.3;">
+            <span class="card-title"></span>
           </div>
           <div class="card-content" style="padding:3%;">
-            <canvas id="canvas" height="150"></canvas>
+            <canvas></canvas>
           </div>
         </div>
       </div>
-    </div>
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:25%;">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <img style="width:100%; height:230px; opacity:0.3;">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content" style="padding:3%;">
+            <canvas></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:25%;">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <img style="width:100%; height:230px; opacity:0.3;">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content" style="padding:3%;">
+            <canvas></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:25%;">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <img style="width:100%; height:230px; opacity:0.3;">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content" style="padding:3%;">
+            <canvas></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:25%;">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <img style="width:100%; height:230px; opacity:0.3;">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content" style="padding:3%;">
+            <canvas></canvas>
+          </div>
+        </div>
+      </div>
 
-    <script>
+      <script>
 
-      var lineChartData = {
-        labels: [
-          "30s",
-          "25s",
-          "20s",
-          "15s",
-          "10s",
-          "5s",
-          "0s"
-        ],
-        datasets: [
+        var data = [
           {
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
+            labels: [
+              "3.0s",
+              "2.5s",
+              "2.0s",
+              "1.5s",
+              "1s",
+              "0.5s",
+              "0s"
+            ],
+            datasets: [
+              {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }, {
+            labels: [
+              "3.0s",
+              "2.5s",
+              "2.0s",
+              "1.5s",
+              "1s",
+              "0.5s",
+              "0s"
+            ],
+            datasets: [
+              {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }, {
+            labels: [
+              "3.0s",
+              "2.5s",
+              "2.0s",
+              "1.5s",
+              "1s",
+              "0.5s",
+              "0s"
+            ],
+            datasets: [
+              {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }, {
+            labels: [
+              "3.0s",
+              "2.5s",
+              "2.0s",
+              "1.5s",
+              "1s",
+              "0.5s",
+              "0s"
+            ],
+            datasets: [
+              {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          }, {
+            labels: [
+              "3.0s",
+              "2.5s",
+              "2.0s",
+              "1.5s",
+              "1s",
+              "0.5s",
+              "0s"
+            ],
+            datasets: [
+              {
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
             ]
           }
         ]
-      }
-      window.onload = function () {
-        $(".button-collapse").sideNav();
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myLine = new Chart(ctx).Line(lineChartData, {responsive: true});
-        window.setInterval(function () {
-          var update = Math.floor(Math.random() * 100);
-          var points = window.myLine.datasets[0].points;
-          for (var i = 0; i < 6; ++i) {
-            points[i].value = points[i + 1].value;
-          }
-          points[6].value = update;
-          window.myLine.datasets[0].points = points;
-          window.myLine.update();
-        }, 5000);
-      }
-    </script>
+        window.onload = function () {
+          $(".button-collapse").sideNav();
+          var dataSrc = 'https://gist.githubusercontent.com/allenwhale/c524ce013a3c5c699d79/raw/4488ae2d09286d434ee585490589cc410cf1e999/cam.json';
+          $.get(dataSrc, function (init) {
+            var allCharts = [];
+            var ctx = [];
+            const cams = 5;
+            const quantum = 6;
 
-  </body>
-</html>
+            for (var i = 0; i < cams; i++) {
+              $('.card')[i].id = init[i].id;
+              $('.card-title')[i].innerHTML = init[i].name;
+              $('#' + init[i].id + " img").attr('src', init[i].host);
+              $('#' + init[i].id + " img").on('load', function () {
+                $('.preloader-wrapper.big').removeClass('active');
+                $(this).animate({
+                  opacity: 1
+                }, 500, function() {
+                  // anime complete
+                })
+              })
+              ctx.push($('#' + init[i].id + " canvas").get(0).getContext("2d"));
+              allCharts.push(new Chart(ctx[i]).Line(data[i], {
+                responsive: true,
+                scaleOverride: true,
+                scaleStartValue: 0,
+                scaleStepWidth: 1,
+                scaleSteps: 5
+              }));
+            }
+            setInterval(function () {
+              for (var i = 0, k = 0; i < cams; i++) {
+                $.get(init[i].data, function (res) {
+                  // console.log(k, res.people);
+                  var points = allCharts[k].datasets[0].points;
+                  for (var j = 0; j < quantum; ++j) {
+                    points[j].value = points[j + 1].value;
+                  }
+                  // console.log(res);
+                  points[quantum].value = res.people;
+                  allCharts[k].datasets[0].points = points;
+                  allCharts[k].update();
+                  k++;
+                }, "json")
+              }
+            }, 500);
+          }, "json");
+
+        }
+      </script>
+
+    </body>
+  </html>

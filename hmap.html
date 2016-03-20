@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Map Playground</title>
+    <meta charset="utf-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script src="https://rawgit.com/Leaflet/Leaflet.heat/gh-pages/dist/leaflet-heat.js"></script>
+    <!-- <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  </script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css"/>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper teal">
+      <a href="#!" class="brand-logo">Heat Map</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <a href="index.html">All</a>
+        </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li>
+          <a href="index.html">All</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div>
+    <div id="map" style="width: 100%; height: 600px"></div>
+    <div id="modal" class="modal" style="width: 400px; overflow:hidden;">
+      <div class="modal-content">
+        <div class="preloader-wrapper big active" style="position:absolute; left:50%; margin-left:-32px; top:20%;">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+        <img name="mjpeg" style="width:100%; height:200px; opacity:0.3;"/>
+        <h6></h6>
+        <canvas id="cam" style="width:100%"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>
+    var data = [
+      [24.9983, 121.455, "10"]
+    ]
+    var colors = [
+      '#0092C7',
+      '#9FE0F6',
+      '#F3E59A',
+      '#F3B59B',
+      '#F29C9C',
+      '#7BA3A8',
+      '#F4F3DE',
+      '#BEAD92',
+      '#F35A4A'
+    ];
+
+    circles = [];
+    var map = L.map('map').setView([
+      24.9983, 121.455
+    ], 14);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2V2Y2hlbnR3IiwiYSI6ImNpZzRrNnJjajJ2bml1a201ZTgxYnByYXkifQ.6Aj4446JZbArro776O5y9A', {
+      maxZoom: 20,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(map);
+    var heat = L.heatLayer(data, {
+      radius: 10,
+      blur: 5
+    }).addTo(map);
+
+    function getRamdomPoint() {
+      var bound = map.getBounds();
+      var up = bound['_northEast']['lat'];
+      var right = bound['_northEast']['lng'];
+      var down = bound['_southWest']['lat'];
+      var left = bound['_southWest']['lng'];
+      var lng = getRandomArbitrary(left, right);
+      var lat = getRandomArbitrary(down, up);
+      var latlng = L.latLng(lat, lng);
+      return latlng;
+    }
+
+    function getRandomArbitrary(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function addMarker(lat, lnt, popup) {
+      var marker = L.marker([lat, lnt]).addTo(map);
+      //    marker.bindPopup(popup);
+      return marker;
+    }
+
+    // function createHeatPoint(weight) {     var p = getRamdomPoint();     for (var i = 0; i < weight; i++) {         heat.addLatLng(p);     }     // console.log([getRamdomPoint()['lat'], getRamdomPoint()['lng']]); }
+
+    function updateHeatPoint(geos) {
+      heat._latlngs = [];
+      for (var i = 0; i < geos.length; i++) {
+        var weight = getRandomInt(1, 100);
+        for (var j = 0; j < weight; j++) {
+          var l = getRandomLocation(geos[i]['laltitude'], geos[i]['longitude'], 100);
+          heat.addLatLng(l);
+        }
+        // var marker = geos[i]['marker']; marker.getPopup()._content = geos[i]['name'] + "<br>" + weight; if (marker.getPopup()._isOpen){    marker.closePopup(); marker.update(); marker.openPopup(); } console.log(geos[i]['name'] + "<br>" + weight);
+      }
+      heat.redraw();
+    }
+
+    function initLocation(geos) {
+      heat._latlngs = [];
+      for (var i = 0; i < geos.length; i++) {
+        var weight = getRandomInt(1, 100);
+        for (var j = 0; j < weight; j++) {
+          var marker = addMarker(geos[i]['laltitude'], geos[i]['longitude'], geos[i]['name']);
+          geos[i]['marker'] = marker;
+          marker.uid = geos[i]['id'];
+          marker.on('click', function (e) {
+            // console.log(e.target.uid);
+            var tick;
+            var modalMeta = geos.filter(function (item) {
+              return (item.id === e.target.uid);
+            })[0];
+            $("[name=mjpeg]").attr("src", modalMeta.host);
+            $("[name=mjpeg]").on('load', function () {
+              $('.preloader-wrapper.big').removeClass('active');
+              $(this).animate({
+                opacity: 1
+              }, 500, function() {
+                // anime complete
+              })
+            })
+            $("#modal h6").text(modalMeta.name);
+            var chart;
+            $('#modal').openModal({
+              dismissible: true, // Modal can be dismissed by clicking outside of the modal
+              opacity: .5, // Opacity of modal background
+              in_duration: 300, // Transition in duration
+              out_duration: 200, // Transition out duration
+              ready: function () {
+                // alert('Ready');
+                var data = {
+                  labels: [
+                    "3.0s",
+                    "2.5s",
+                    "2.0s",
+                    "1.5s",
+                    "1.0s",
+                    "5.s",
+                    "0s"
+                  ],
+                  datasets: [
+                    {
+                      fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data: [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                };
+                var ctx = document.getElementById("cam").getContext("2d");
+                chart = new Chart(ctx).Line(data, {
+                  responsive: true,
+                  scaleOverride: true,
+                  scaleStartValue: 0,
+                  scaleStepWidth: 1,
+                  scaleSteps: 5
+                });
+                tick = setInterval(function () {
+                  $.get(modalMeta.data, function (res) {
+                    var quantum = 6;
+                    var points = chart.datasets[0].points;
+                    for (var j = 0; j < quantum; ++j) {
+                      points[j].value = points[j + 1].value;
+                    }
+                    // console.log(res);
+                    points[quantum].value = res.people;
+                    chart.datasets[0].points = points;
+                    // console.log('update');
+                    chart.update();
+                  }, "json");
+                }, 500);
+              }, // Callback for Modal open
+              complete: function () {
+                // alert('Closed');
+                clearInterval(tick);
+                $('.preloader-wrapper.big').addClass('active');
+                $('[name=mjpeg]').css('opacity', 0.3);
+                $("[name=mjpeg]").attr("src", "");
+                chart.destroy();
+              } // Callback for Modal close
+            });
+          });
+        }
+      }
+      heat.redraw();
+    }
+
+    var getRandomLocation = function (latitude, longitude, radiusInMeters) {
+      var getRandomCoordinates = function (radius, uniform) {
+        // Generate two random numbers
+        var a = Math.random(),
+          b = Math.random();
+        // Flip for more uniformity.
+        if (uniform) {
+          if (b < a) {
+            var c = b;
+            b = a;
+            a = c;
+          }
+        }
+        // It's all triangles.
+        return [
+          b * radius * Math.cos(2 * Math.PI * a / b),
+          b * radius * Math.sin(2 * Math.PI * a / b)
+        ];
+      };
+      var randomCoordinates = getRandomCoordinates(radiusInMeters, true);
+      // Earths radius in meters via WGS 84 model.
+      var earth = 6378137;
+      // Offsets in meters.
+      var northOffset = randomCoordinates[0],
+        eastOffset = randomCoordinates[1];
+      // Offset coordinates in radians.
+      var offsetLatitude = northOffset / earth,
+        offsetLongitude = eastOffset / (earth * Math.cos(Math.PI * (latitude / 180)));
+      // Offset position in decimal degrees.
+      var lat = latitude + (offsetLatitude * (180 / Math.PI));
+      var lng = longitude + (offsetLongitude * (180 / Math.PI));
+      var latlng = L.latLng(lat, lng);
+      return latlng;
+    };
+
+    var geos;
+    function init() {
+      var dataSrc = "https://gist.githubusercontent.com/allenwhale/c524ce013a3c5c699d79/raw/4488ae2d09286d434ee585490589cc410cf1e999/cam.json";
+      $.getJSON(dataSrc, function (data) {
+        geos = data;
+        initLocation(data);
+        setInterval(updateHeatPoint(geos), 10000);
+      });
+      $(".button-collapse").sideNav();
+    }
+    init();
+  </script>
+</body>
+
+</html>
